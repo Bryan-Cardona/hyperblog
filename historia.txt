@@ -9,4 +9,6 @@ En cámara parece alto pero no lo es tanto.
 
 Master 1
 
+Master 2
+
 Hoy es desarrollador en nakiro
