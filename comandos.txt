@@ -1,0 +1,200 @@
+Salir de vim
+esc + shift + z + z
+
+Comandos terminal
+
+pwd (Me muestra la ruta donde estoy)
+cd (Me leva al directorio raiz)
+ls (Me muestra las carpetas a las que puedo acceder desde donde estoy)
+ls -al (Me muestra todos los archivos incluyendo  los ocultos)
+ls -l (Me muestra todos menos los ocultos)
+clear (limpia la terminal)
+cd .. (Me devuelve a la carpeta exterior)
+mkdir nombre_carpeta (Cr ea una carpeta)
+touch nombreArchivo_extension (Crea un archivo vacio)
+cat nombreArchivo_extension (Muestra el contenido)
+history (Muestra el historial de comandos *Los enumera*)
+!numero_comando (Ejecuta nuevamente el comando con ese indica)
+rm nombreArchivo_extension (Elimina el archivo)
+git config -l (Muestra mis credenciales de git)
+
+Asignar mis credenciales a git bash:
+git config --global user.name "username"
+git config --global user.email "correo"
+
+--------------------------------------------------------------------
+Comandos git
+
+git init (Crea un repositorio en la carpeta que estamos)
+git status (Estado del proyecto)
+git add nombre_archivo (Agrega los cambios en el proyecto *Aun no se envia al repositorio*)
+git add . (Agrega todos los archivos de la carpeta en la que estoy)
+git rm nombre_archivo (Elimina el archivo del repo)
+git rm --catch nombre_archivo (Elimina el archivo *Cuando esta en cache, antes de enviar al repo*)
+git commit -m "aqui_va_el_mensaje" (Envia los cambios al repo, deben estar agregados para hacer el commit)
+git (Muestra algunos comandos)
+git config --list (Muestra la configuracion de mi git)
+git config --list --show-origin (Muestra donde se almacena la configuracion de mi git)
+git config --global user.name "mi_username"(Configuro mi nombre de usuario)
+git config --global user.email "mi_email"(Configuro mi email de usuario)
+git log nombre_archivo.extensionArchivo (Muestra el historial del archivo)
+git show nombre_archivo.extensionArchivo (Muestra el ultimo cambio del archivo)
+git diff (Muestra la diferencia entre lo que tengo agregado y lo que he hecho en escritorio)
+git log --stat (Muestra el historial de cambios "cuales archivos en cada commit")
+git checkout token_commit nombre_archivo (Nos devuelve a la version de ese commit pero no se actualiza en git hasta que haga commit nuevamente)
+git checkout master nombre_archivo (Nos vuelve a llevar a la ultima versión de la rama master)
+git commit -am (Hace el add y el commit, solo funciona para archivos con los que haya usado git add al menos una vez)
+git branch nombre_rama (Crea una nueva rama)
+git checkout nombre_rama (Cambia a la rama indicada)
+git branch (Veo mis ramas)
+git merge nombre_otra_rama (Fusiona las ramas, lo ideal es hacerlo estando dentro de la rama master)
+
+
+Para ver los cambios entre un commit y otro debo usar git log (Para ver el historial)
+y a continuacion usar:
+
+git diff token_commit_inicial token_commit_final (Compara ambos commit)
+
+git reset token_commit --hard (Nos devuelve a la version de ese commit)
+git reset token_commit --soft (Nos devuelve a la version de ese commit pero lo que agregamos con el add, sigue ahi para el siguiente commit)
+Al usar git reset se borran los commit de las veriones posteriores a la que volvimos
+
+git log --all --graph (Muestra con lineas el flujo de trabajo)
+git log --all --graph --decorate --oneline (lo muestra mas decorado)
+alias arbolito="git log --all --graph --decorate --oneline" (al escribir arbolito se ejecuta ese comando)
+
+gitk (Abre una ventana con la historia de los commits)
+
+--------------------------------------------------------------------
+Comandos para github
+
+git clone url (Trae una copia a mi directorio, reemplaza el git init)
+git push (Un commit al repositorio remoto "github")
+git fetch (Me trae los cambios al repositorio local pero no al directorio)
+git merge (combina lo que traje con lo que estoy trabajando localmente)
+git pull (Es una combinación de fetch y merge)
+git remote add origin https://github.com/Bryan-Cardona/hyperblog.git (Nos conecta al repositorio de github, se debe copiar en https desde github)
+git remote -v (Nos muestra a que estamos conectados)
+git push origin master (Enviamos todo a la rama master en github)
+git branch -m main (Vuelve main la rama principal)
+git pull origin master (Trae los cambios que hay en github a mi repositorio local)
+
+si hay conflicto, para que se haga el pull se debe usar:
+git pull origin master --allow-unrelated-histories
+git remote set-url origin ssh-url (Para usar ssh en lugar de https)
+
+git tag -a v0.1 -m "mensaje" token_commit (asigné ese tag a ese commit)
+git tag (Muestra los tags que hay)
+git show-ref --tags (Me muestra a que commit está relacionado ese tag)
+git push origin --tags (envio el tag a github)
+git tag -d nombre_tag (Elimina el tag)
+git push origin :refs/tags/nombre_tag (Elimina el tag de github)
+
+git show-branch (Nos muestra las ramas y su historia)
+git show-branch --all (Nos muestra las ramas y su historia con más detalle)
+
+pull request en github
+* Sirve para notificar a alguien que lo revise y esa persona puede hacer el merge
+* Puede estar compuesto de varios commits
+* Se puede aprobar o solicitar ajustes
+* Se puede notificar la corrección y solicitar la revisión nuevamente
+* Despues de hacer el merge se puede eliminar la rama (Si no se necesita más)
+
+fork en github:
+* Clona un poyecto (Publico) a mi repositorio
+* Al hacer un commit me permite hacer un pull request al proyecto original
+* El encargado del proyecto lo revisa y puede realizar un merge
+
+git remote add upstream url_repositorio (Nos conectamos a un repositorio remoto "upstream" por convencion)
+
+si trabajamos en un proyecto opensource debemos hacer fork ára tener el proyecto en nuestro repositorio y traerlo aqui como origin, pero tambien debemos traer el proyecto original con upstream
+
+en este caso siempre hacer pull del proyecto original para mantener actualizada nuestra rama 
+"git pull upstream master"
+
+Crear el archivo .gitignore
+* Lo que indiquemos alli se ignorará
+
+Readme.md ayuda a mostrar nuestro repositorio
+* Esta en html y markdown
+
+para usar github pages debemos ir a la configuracion del proyecto e indicar a que rama debe ligarse, es como si tuvieramos un servidor
+
+Cambia la historia, es un merge entre las dos ramas pero hace creer que esa rama se creó despues, es una mala practica hacer esto
+git rebase master (Se debe hacer primero desde la otra rama)
+git rebase otra_rama (Estando ya en la master)
+
+git stash (revierte los cambios sin commit)
+git stash list (me lista el cambio que reverti)
+git stash pop (me devuelve los cambios que habia revertido)
+git stash branch nombre_rama (crea una rama con los cambios que tengo en stash)
+git stash drop (Elimina lo que tengo en stash)
+
+git clean --gry-run (Indica lo que voy a borrar "archivos")
+git clean -f (Elimina los archivos que no se han agregado a memoria "git add")
+* Las carpetas se deben borrar manualmente
+* Lo que haga parte de gitignore tampoco se elimina
+
+git cherry-pick token_commit (hace un merge con un commit viejo de otra rama) Es una mala practica
+
+git branch -d nombre_rama (Elimina la rama)
+git reflog (Muestra toda la historia, incluyendo ramas eliminadas)
+git reset --hard token_commit (Nos devuelve a esa posición en la historia y elimina lo posterior) Es peligroso, cuidado
+
+Si hago un commit y se me olvidó agregar algo qeu debia ir alli:
+* debo hacer la modificacion y usar el git add y luego usar amend
+git commit --amend (Agrega los cambios al commit anterior)
+git grep palabra_a_buscar (me indica en que archivos ha sido usada y cuantas veces)
+git grep -n palabra_a_buscar (Me muestra en que lineas esta la palabra)
+git grep -c palabra_a_buscar (me muestra la cantidad de veces que se usa la palabra en cada archivo)
+git log -S palabra_a_buscar (Me muestra las veces que aparece esa palabra en un commit)
+
+git shortlog (Cuantos commits ha hecho cada miembro del equipo)
+git shortlog -sn (muestra las personas que han hecho commits)
+git shortlog -sn --all (muestra la cantidad de commits que hizo cada persona incluyendo los eliminados)
+git shortlog -sn --all --no-merges (no incluye los merges en el conte)
+
+git config --global alias.stats "shortlog -sn --all --no-merges" (Al usar git stats ejecuta ese comando)
+git blame nombre_archivo (Muestra quien hizo cada cosa en el archivo)
+git blame -c nombre_archivo (Lo decora un poco)
+git blame css/estilos.css -L35,53 (Muestra quien hizo cambios en esas lineas)
+
+git branch -r (Ves las ramas que hay en el servidor)
+git branch -a (Ves todas las ramas, locales y en repositorio)
+
+--------------------------------------------------------------------
+LLaves públicas y privadas
+
+ssh-keygen -t rsa -b 4096 -C "bryan.cardona@utp.edu.co"
+genera una clave "rsa" algoritmo para crearla "4096" complejidad de la llave
+
+eval $(ssh-agent -s) (Reviso si se esta revisando la llave publica)
+ssh-add ~/.ssh/id_rsa (Debo estar en la carpeta raiz, agrega la llave privada a git)
+
+--------------------------------------------------------------------
+Notas:
+
+Al usar git init se crea un espacio en memoria reservado para los cambios del archivo
+Éstos cambios no afectan al repositorio aún
+
+Al usar git add el archivo queda preparado para ser subido al repositorio pero aun no está alli
+
+y finalmente al usar git commit, guardamos nuestro cambio en el repositorio
+
+git reset nos devuelve al pasado sin la posibilidad de retomar la ultima version,
+git checkout nos permite ir al pasado, revisar e ir nuevamente a la ultima version (No hacer comiit para volver a la ultima version)
+
+Cuando hay conflictos al intentar un merge, visual studio code me detalla cuales son y me permite corregirlo, luego debo hacer commit para que se guarde correctamente
+
+Siempre traer la ultima version del repositorio en linea antes de hacer commit (push)
+
+Tildes en html: 
+&letra_sin_tildeacute; (pone tilde a la letra)
+&aacute; (Pone una a con tilde)
+
+Para desplegar en un servidor, se debe clonar el repositorio de github alli
+* Si se hace un nuevo commit se debe actualizar en el servidor
+* Para actualizar se debe hacer pull en el servidor al igual que hacemos en consola normalmente
+* Hay que proteger el .git en el servidor
+
+No se deben guardar archivos binarios en un repositorio
